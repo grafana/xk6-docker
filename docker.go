@@ -7,7 +7,7 @@ import (
 const version = "v0.0.1"
 
 func init() {
-	modules.Register("k6/docker", &Docker{
+	modules.Register("k6/x/docker", &Docker{
 		Version: version,
 	})
 }
