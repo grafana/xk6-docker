@@ -15,6 +15,10 @@ func init() {
 	modules.Register("k6/x/docker", &Docker{
 		Version: version,
 	})
+
+	modules.Register("k6/x/docker/containers", &Containers{
+		Version: version,
+	})
 }
 
 // Docker is the main export of k6 docker extension
@@ -22,8 +26,13 @@ type Docker struct {
 	Version string
 }
 
+// Containers is a structure with all docker containers functions
+type Containers struct {
+	Version string
+}
+
 // ListContainers works as Docker ps command
-func (d *Docker) ListContainers(options types.ContainerListOptions) ([]types.Container, error) {
+func (d *Containers) ListContainers(options types.ContainerListOptions) ([]types.Container, error) {
 	cli, err := client.NewClientWithOpts(client.FromEnv)
 
 	if err != nil {
@@ -35,7 +44,7 @@ func (d *Docker) ListContainers(options types.ContainerListOptions) ([]types.Con
 }
 
 // StartContainer works as Docker start command
-func (d *Docker) StartContainer(containerID string, options types.ContainerStartOptions) error {
+func (d *Containers) StartContainer(containerID string, options types.ContainerStartOptions) error {
 	cli, err := client.NewClientWithOpts(client.FromEnv)
 
 	if err != nil {
@@ -46,7 +55,7 @@ func (d *Docker) StartContainer(containerID string, options types.ContainerStart
 }
 
 // StopContainer works as Docker stop command
-func (d *Docker) StopContainer(containerID string) error {
+func (d *Containers) StopContainer(containerID string) error {
 	cli, err := client.NewClientWithOpts(client.FromEnv)
 
 	if err != nil {

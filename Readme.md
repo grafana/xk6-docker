@@ -36,10 +36,10 @@ Then:
 ## Example
 
 ```javascript
-import docker from 'k6/x/docker';
+import containers from 'k6/x/docker/containers';
 
 export default function () {
-  docker.listContainers().forEach((container) => {
+  containers.listContainers().forEach((container) => {
     console.log(container.id.substring(0, 10)));
   })
 }

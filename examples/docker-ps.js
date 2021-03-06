@@ -1,4 +1,4 @@
-import docker from 'k6/x/docker';
+import containers from 'k6/x/docker/containers';
 
 function logContainer(container) {
   const line = [
@@ -18,7 +18,7 @@ function portsLabel(ports) {
 }
 
 export default function () {
-  const containers = docker.listContainers({all: false});
-  console.log(`${containers.length} containers found:`)
-  containers.forEach(logContainer)
+  const containersList = containers.listContainers({all: false});
+  console.log(`${containersList.length} containers found:`)
+  containersList.forEach(logContainer)
 }
