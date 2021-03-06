@@ -2,14 +2,13 @@ package docker
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/client"
 	"github.com/loadimpact/k6/js/modules"
 )
 
-const version = "v0.0.2"
+const version = "v0.0.1"
 
 func init() {
 	modules.Register("k6/x/docker", &Docker{
@@ -22,23 +21,14 @@ type Docker struct {
 	Version string
 }
 
-// Ps lists Docker containers
-func (d *Docker) Ps() []string {
+// ListContainers works as Docker ps command
+func (d *Docker) ListContainers(options types.ContainerListOptions) ([]types.Container, error) {
 	cli, err := client.NewClientWithOpts(client.FromEnv)
+
 	if err != nil {
-		panic(err)
+		return []types.Container{}, err
 	}
 
-	containers, err := cli.ContainerList(context.Background(), types.ContainerListOptions{})
-	if err != nil {
-		panic(err)
-	}
-
-	result := make([]string, 0, len(containers))
-
-	for _, container := range containers {
-		result = append(result, fmt.Sprintf("%s %s %s", container.ID[:10], container.Image, container.Command))
-	}
-
-	return result
+	containers, err := cli.ContainerList(context.Background(), options)
+	return containers, err
 }

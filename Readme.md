@@ -39,7 +39,9 @@ Then:
 import docker from 'k6/x/docker';
 
 export default function () {
-  console.log(docker.ps().join("\n"));
+  docker.listContainers().forEach((container) => {
+    console.log(container.id.substring(0, 10)));
+  })
 }
 ```
 
@@ -55,16 +57,16 @@ $ ./k6 run script.js
   / __________ \  |__| \__\ \_____/ .io
 
   execution: local
-     script: ../xk6-docker/test.js
+     script: ../xk6-docker/script.js
      output: -
 
   scenarios: (100.00%) 1 scenario, 1 max VUs, 10m30s max duration (incl. graceful stop):
            * default: 1 iterations for each of 1 VUs (maxDuration: 10m0s, gracefulStop: 30s)
 
-INFO[0000] 32c2786ccb ...docker image, command and so on...
-738b15d70f ...docker image, command and so on...
-5813101144 ...docker image, command and so on...
-b1fda43ce2 ...docker image, command and so on...
+INFO[0000] 32c2786ccb
+INFO[0000] 738b15d70f
+INFO[0000] 5813101144
+INFO[0000] b1fda43ce2
 
 running (00m00.0s), 0/1 VUs, 1 complete and 0 interrupted iterations
 default ✓ [======================================] 1 VUs  00m00.0s/10m0s  1/1 iters, 1 per VU
@@ -75,3 +77,5 @@ default ✓ [======================================] 1 VUs  00m00.0s/10m0s  1/1 
      iterations...........: 1   25.017512/s
 
 ```
+
+Inspect examples folder for more details.
