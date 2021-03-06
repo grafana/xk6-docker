@@ -2,6 +2,7 @@ package docker
 
 import (
 	"context"
+	"time"
 
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/client"
@@ -42,4 +43,18 @@ func (d *Docker) StartContainer(containerID string, options types.ContainerStart
 	}
 
 	return cli.ContainerStart(context.Background(), containerID, options)
+}
+
+// StopContainer works as Docker stop command
+func (d *Docker) StopContainer(containerID string) error {
+	cli, err := client.NewClientWithOpts(client.FromEnv)
+
+	if err != nil {
+		return err
+	}
+
+	// TODO: Add timeout option support
+	timeout := 0 * time.Second
+
+	return cli.ContainerStop(context.Background(), containerID, &timeout)
 }
