@@ -49,3 +49,14 @@ func (d *Containers) StopContainer(containerID string) error {
 
 	return cli.ContainerStop(context.Background(), containerID, &timeout)
 }
+
+// PauseContainer works as Docker pause command
+func (d *Containers) PauseContainer(containerID string) error {
+	cli, err := client.NewClientWithOpts(client.FromEnv)
+
+	if err != nil {
+		return err
+	}
+
+	return cli.ContainerPause(context.Background(), containerID)
+}
