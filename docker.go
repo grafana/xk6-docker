@@ -32,3 +32,14 @@ func (d *Docker) ListContainers(options types.ContainerListOptions) ([]types.Con
 	containers, err := cli.ContainerList(context.Background(), options)
 	return containers, err
 }
+
+// StartContainer works as Docker start command
+func (d *Docker) StartContainer(containerID string, options types.ContainerStartOptions) error {
+	cli, err := client.NewClientWithOpts(client.FromEnv)
+
+	if err != nil {
+		return err
+	}
+
+	return cli.ContainerStart(context.Background(), containerID, options)
+}
