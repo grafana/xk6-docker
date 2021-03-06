@@ -60,3 +60,14 @@ func (d *Containers) PauseContainer(containerID string) error {
 
 	return cli.ContainerPause(context.Background(), containerID)
 }
+
+// UnpauseContainer works as Docker unpause command
+func (d *Containers) UnpauseContainer(containerID string) error {
+	cli, err := client.NewClientWithOpts(client.FromEnv)
+
+	if err != nil {
+		return err
+	}
+
+	return cli.ContainerUnpause(context.Background(), containerID)
+}
