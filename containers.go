@@ -1,6 +1,7 @@
 package docker
 
 import (
+	"bytes"
 	"context"
 	"time"
 
@@ -70,4 +71,22 @@ func (d *Containers) UnpauseContainer(containerID string) error {
 	}
 
 	return cli.ContainerUnpause(context.Background(), containerID)
+}
+
+// Logs works as Docker logs command
+func (d *Containers) Logs(containerID string, options types.ContainerLogsOptions) (string, error) {
+	cli, err := client.NewClientWithOpts(client.FromEnv)
+
+	if err != nil {
+		return "", err
+	}
+	response, err := cli.ContainerLogs(context.Background(), containerID, options)
+	buf := new(bytes.Buffer)
+
+	if err != nil {
+		return "", err
+	}
+
+	buf.ReadFrom(response)
+	return buf.String(), nil
 }
