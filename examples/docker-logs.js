@@ -1,7 +1,7 @@
 import containers from 'k6/x/docker/containers';
 
 export default function () {
-  const containerId = 'YOUR_CONTEINER_ID';
+  const containerId = 'YOUR_CONTAINER_ID';
   const options = {
     show_stdout: true,
     // show_stderr: true,

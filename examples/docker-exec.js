@@ -1,7 +1,7 @@
 import containers from 'k6/x/docker/containers';
 
 export default function () {
-  const containerId = '2e0a7ff77434';
+  const containerId = 'YOUR_CONTAINER_ID';
   const options = {
     // user:          '',                  // User that will run the command
     // privileged:    false,               // Is the container in privileged mode
@@ -13,7 +13,7 @@ export default function () {
     // detach_keys:   '',                  // Escape keys for detach
     // env:           [''],                // Environment variables
     // working_dir:   '',                  // Working directory
-    cmd: ['bundle', 'exec', 'rake', 'db:rollback']  // Execution commands and args
+    cmd: ['YOUR', 'EXEC', 'COMMAND']  // Execution commands and args
   }
   containers.execContainer(containerId, options);
 }
