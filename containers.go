@@ -65,3 +65,8 @@ func (d *Containers) Logs(containerID string, options types.ContainerLogsOptions
 	buf.ReadFrom(response)
 	return buf.String(), nil
 }
+
+// InspectContainer works as Docker inspect command
+func (d *Containers) InspectContainer(containerID string) (types.ContainerJSON, error) {
+	return d.Client.ContainerInspect(context.Background(), containerID)
+}
