@@ -70,3 +70,12 @@ func (d *Containers) Logs(containerID string, options types.ContainerLogsOptions
 func (d *Containers) InspectContainer(containerID string) (types.ContainerJSON, error) {
 	return d.Client.ContainerInspect(context.Background(), containerID)
 }
+
+// ExecContainer works as Docker exec command
+func (d *Containers) ExecContainer(containerID string, config types.ExecConfig) error {
+	response, err := d.Client.ContainerExecCreate(context.Background(), containerID, config)
+	if err != nil {
+		return err
+	}
+	return d.Client.ContainerExecStart(context.Background(), response.ID, types.ExecStartCheck{})
+}
