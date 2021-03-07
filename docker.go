@@ -11,9 +11,9 @@ func init() {
 		Version: version,
 	})
 
-	modules.Register("k6/x/docker/containers", &Containers{
-		Version: version,
-	})
+	containers := Containers{Version: version}
+	containers.SetupClient()
+	modules.Register("k6/x/docker/containers", &containers)
 }
 
 // Docker is the main export of k6 docker extension

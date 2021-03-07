@@ -12,75 +12,50 @@ import (
 // Containers is a structure with all docker containers functions
 type Containers struct {
 	Version string
+	Client  *client.Client
+}
+
+// SetupClient for filling in Docker client instance
+func (d *Containers) SetupClient() {
+	cli, err := client.NewClientWithOpts(client.FromEnv)
+	if err != nil {
+		panic(err)
+	}
+	d.Client = cli
 }
 
 // ListContainers works as Docker ps command
 func (d *Containers) ListContainers(options types.ContainerListOptions) ([]types.Container, error) {
-	cli, err := client.NewClientWithOpts(client.FromEnv)
-
-	if err != nil {
-		return []types.Container{}, err
-	}
-
-	containers, err := cli.ContainerList(context.Background(), options)
+	containers, err := d.Client.ContainerList(context.Background(), options)
 	return containers, err
 }
 
 // StartContainer works as Docker start command
 func (d *Containers) StartContainer(containerID string, options types.ContainerStartOptions) error {
-	cli, err := client.NewClientWithOpts(client.FromEnv)
-
-	if err != nil {
-		return err
-	}
-
-	return cli.ContainerStart(context.Background(), containerID, options)
+	return d.Client.ContainerStart(context.Background(), containerID, options)
 }
 
 // StopContainer works as Docker stop command
 func (d *Containers) StopContainer(containerID string) error {
-	cli, err := client.NewClientWithOpts(client.FromEnv)
-
-	if err != nil {
-		return err
-	}
-
 	// TODO: Add timeout option support
 	timeout := 0 * time.Second
 
-	return cli.ContainerStop(context.Background(), containerID, &timeout)
+	return d.Client.ContainerStop(context.Background(), containerID, &timeout)
 }
 
 // PauseContainer works as Docker pause command
 func (d *Containers) PauseContainer(containerID string) error {
-	cli, err := client.NewClientWithOpts(client.FromEnv)
-
-	if err != nil {
-		return err
-	}
-
-	return cli.ContainerPause(context.Background(), containerID)
+	return d.Client.ContainerPause(context.Background(), containerID)
 }
 
 // UnpauseContainer works as Docker unpause command
 func (d *Containers) UnpauseContainer(containerID string) error {
-	cli, err := client.NewClientWithOpts(client.FromEnv)
-
-	if err != nil {
-		return err
-	}
-
-	return cli.ContainerUnpause(context.Background(), containerID)
+	return d.Client.ContainerUnpause(context.Background(), containerID)
 }
 
 // Logs works as Docker logs command
 func (d *Containers) Logs(containerID string, options types.ContainerLogsOptions) (string, error) {
-	cli, err := client.NewClientWithOpts(client.FromEnv)
-
-	if err != nil {
-		return "", err
-	}
-	response, err := cli.ContainerLogs(context.Background(), containerID, options)
+	response, err := d.Client.ContainerLogs(context.Background(), containerID, options)
 	buf := new(bytes.Buffer)
 
 	if err != nil {
