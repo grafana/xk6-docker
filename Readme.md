@@ -47,10 +47,10 @@ export default function () {
 
 Result output:
 
-```bash
+```plain
 $ ./k6 run script.js
 
-        /\      |‾‾| /‾‾/   /‾‾/   
+          /\      |‾‾| /‾‾/   /‾‾/   
      /\  /  \     |  |/  /   /  /    
     /  \/    \    |     (   /   ‾‾\  
    /          \   |  |\  \ |  (‾)  | 
