@@ -18,7 +18,7 @@ function portsLabel(ports) {
 }
 
 export default function () {
-  const containersList = containers.listContainers({all: false});
+  const containersList = containers.list({all: false});
   console.log(`${containersList.length} containers found:`)
   containersList.forEach(logContainer)
 }

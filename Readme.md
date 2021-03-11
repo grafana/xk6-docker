@@ -39,7 +39,7 @@ Then:
 import containers from 'k6/x/docker/containers';
 
 export default function () {
-  containers.listContainers().forEach((container) => {
+  containers.list().forEach((container) => {
     console.log(container.id.substring(0, 10)));
   })
 }

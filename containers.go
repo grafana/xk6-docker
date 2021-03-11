@@ -24,32 +24,32 @@ func (d *Containers) SetupClient() {
 	d.Client = cli
 }
 
-// ListContainers works as Docker ps command
-func (d *Containers) ListContainers(options types.ContainerListOptions) ([]types.Container, error) {
+// List works as Docker ps command
+func (d *Containers) List(options types.ContainerListOptions) ([]types.Container, error) {
 	containers, err := d.Client.ContainerList(context.Background(), options)
 	return containers, err
 }
 
-// StartContainer works as Docker start command
-func (d *Containers) StartContainer(containerID string, options types.ContainerStartOptions) error {
+// Start works as Docker start command
+func (d *Containers) Start(containerID string, options types.ContainerStartOptions) error {
 	return d.Client.ContainerStart(context.Background(), containerID, options)
 }
 
-// StopContainer works as Docker stop command
-func (d *Containers) StopContainer(containerID string) error {
+// Stop works as Docker stop command
+func (d *Containers) Stop(containerID string) error {
 	// TODO: Add timeout option support
 	timeout := 0 * time.Second
 
 	return d.Client.ContainerStop(context.Background(), containerID, &timeout)
 }
 
-// PauseContainer works as Docker pause command
-func (d *Containers) PauseContainer(containerID string) error {
+// Pause works as Docker pause command
+func (d *Containers) Pause(containerID string) error {
 	return d.Client.ContainerPause(context.Background(), containerID)
 }
 
-// UnpauseContainer works as Docker unpause command
-func (d *Containers) UnpauseContainer(containerID string) error {
+// Unpause works as Docker unpause command
+func (d *Containers) Unpause(containerID string) error {
 	return d.Client.ContainerUnpause(context.Background(), containerID)
 }
 
@@ -66,13 +66,13 @@ func (d *Containers) Logs(containerID string, options types.ContainerLogsOptions
 	return buf.String(), nil
 }
 
-// InspectContainer works as Docker inspect command
-func (d *Containers) InspectContainer(containerID string) (types.ContainerJSON, error) {
+// Inspect works as Docker inspect command
+func (d *Containers) Inspect(containerID string) (types.ContainerJSON, error) {
 	return d.Client.ContainerInspect(context.Background(), containerID)
 }
 
-// ExecContainer works as Docker exec command
-func (d *Containers) ExecContainer(containerID string, config types.ExecConfig) error {
+// Exec works as Docker exec command
+func (d *Containers) Exec(containerID string, config types.ExecConfig) error {
 	response, err := d.Client.ContainerExecCreate(context.Background(), containerID, config)
 	if err != nil {
 		return err

@@ -2,5 +2,5 @@ import containers from 'k6/x/docker/containers';
 
 export default function () {
   const containerId = 'YOUR_CONTAINER_ID';
-  containers.startContainer(containerId, {attach: true});
+  containers.start(containerId, {attach: true});
 }

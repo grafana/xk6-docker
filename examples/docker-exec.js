@@ -15,5 +15,5 @@ export default function () {
     // working_dir:   '',                  // Working directory
     cmd: ['YOUR', 'EXEC', 'COMMAND']  // Execution commands and args
   }
-  containers.execContainer(containerId, options);
+  containers.exec(containerId, options);
 }
