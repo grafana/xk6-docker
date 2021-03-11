@@ -31,8 +31,8 @@ func (d *Containers) List(options types.ContainerListOptions) ([]types.Container
 }
 
 // Start works as Docker start command
-func (d *Containers) Start(containerID string, options types.ContainerStartOptions) error {
-	return d.Client.ContainerStart(context.Background(), containerID, options)
+func (d *Containers) Start(containerID string) error {
+	return d.Client.ContainerStart(context.Background(), containerID, types.ContainerStartOptions{})
 }
 
 // Stop works as Docker stop command
