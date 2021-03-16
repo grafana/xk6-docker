@@ -46,3 +46,9 @@ func (d *Images) Pull(refStr string, options types.ImagePullOptions) (string, er
 func (d *Images) Remove(imageID string, options types.ImageRemoveOptions) ([]types.ImageDeleteResponseItem, error) {
 	return d.Client.ImageRemove(context.Background(), imageID, options)
 }
+
+// Inspect works as Docker image inspect
+func (d *Images) Inspect(imageID string) (types.ImageInspect, error) {
+	result, _, error := d.Client.ImageInspectWithRaw(context.Background(), imageID)
+	return result, error
+}
