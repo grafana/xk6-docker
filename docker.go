@@ -18,6 +18,10 @@ func init() {
 	volumes := Volumes{Version: version}
 	volumes.SetupClient()
 	modules.Register("k6/x/docker/volumes", &volumes)
+
+	networks := Networks{Version: version}
+	networks.SetupClient()
+	modules.Register("k6/x/docker/networks", &networks)
 }
 
 // Docker is the main export of k6 docker extension
