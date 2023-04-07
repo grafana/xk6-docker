@@ -1,18 +1,5 @@
-> ### ⚠️ This is a proof of concept
->
-> As this is a proof of concept,  it won't be supported by the k6 team.
-> It may also break in the future as xk6 evolves. USE AT YOUR OWN RISK!
-> Any issues with the tool should be raised [here](https://github.com/grafana/xk6-docker/issues).
-
-</br>
-</br>
-
-<div align="center">
-
 # xk6-docker
 A k6 extension for using of Docker CLI in testing. Built for [k6](https://go.k6.io/k6) using [xk6](https://github.com/grafana/xk6).
-
-</div>
 
 ## Build
 
@@ -40,8 +27,8 @@ import containers from 'k6/x/docker/containers';
 
 export default function () {
   containers.list().forEach((container) => {
-    console.log(container.id.substring(0, 10)));
-  })
+    console.log(container.id.substring(0, 10));
+  });
 }
 ```
 
@@ -78,4 +65,4 @@ default ✓ [======================================] 1 VUs  00m00.0s/10m0s  1/1 
 
 ```
 
-Inspect examples folder for more details.
+Inspect [`examples`](examples) folder for more details.

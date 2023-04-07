@@ -9,18 +9,18 @@ import (
 	"github.com/docker/docker/client"
 )
 
+// Volumes is a structure with all docker Volume functions
 type Volumes struct {
-	Version string
-	Client  *client.Client
+	Client *client.Client
 }
 
 // SetupClient for filling in Docker client instance
-func (d *Volumes) SetupClient() {
+func (v *Volumes) SetupClient() {
 	cli, err := client.NewClientWithOpts(client.FromEnv)
 	if err != nil {
 		panic(err)
 	}
-	d.Client = cli
+	v.Client = cli
 }
 
 // Create works as Docker volume create
