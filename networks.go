@@ -7,9 +7,9 @@ import (
 	"github.com/docker/docker/client"
 )
 
+// Networks is a structure with all docker Network functions
 type Networks struct {
-	Version string
-	Client  *client.Client
+	Client *client.Client
 }
 
 // SetupClient for filling in Docker client instance

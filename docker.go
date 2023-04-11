@@ -1,34 +1,29 @@
+// Package docker provides a module implementation for manipulating docker resources using Javascript
 package docker
 
 import (
 	"go.k6.io/k6/js/modules"
 )
 
-const version = "v0.0.1"
-
 func init() {
-	modules.Register("k6/x/docker", &Docker{
-		Version: version,
-	})
+	modules.Register("k6/x/docker", &Docker{})
 
-	containers := Containers{Version: version}
+	containers := Containers{}
 	containers.SetupClient()
 	modules.Register("k6/x/docker/containers", &containers)
 
-	volumes := Volumes{Version: version}
+	volumes := Volumes{}
 	volumes.SetupClient()
 	modules.Register("k6/x/docker/volumes", &volumes)
 
-	networks := Networks{Version: version}
+	networks := Networks{}
 	networks.SetupClient()
 	modules.Register("k6/x/docker/networks", &networks)
 
-	images := Images{Version: version}
+	images := Images{}
 	images.SetupClient()
 	modules.Register("k6/x/docker/images", &images)
 }
 
 // Docker is the main export of k6 docker extension
-type Docker struct {
-	Version string
-}
+type Docker struct{}

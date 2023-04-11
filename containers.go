@@ -11,8 +11,7 @@ import (
 
 // Containers is a structure with all docker containers functions
 type Containers struct {
-	Version string
-	Client  *client.Client
+	Client *client.Client
 }
 
 // SetupClient for filling in Docker client instance
@@ -62,7 +61,10 @@ func (d *Containers) Logs(containerID string, options types.ContainerLogsOptions
 		return "", err
 	}
 
-	buf.ReadFrom(response)
+	_, err = buf.ReadFrom(response)
+	if err != nil {
+		return "", err
+	}
 	return buf.String(), nil
 }
 

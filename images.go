@@ -8,19 +8,18 @@ import (
 	"github.com/docker/docker/client"
 )
 
-// Containers is a structure with all docker containers functions
+// Images is a structure with all docker Image functions
 type Images struct {
-	Version string
-	Client  *client.Client
+	Client *client.Client
 }
 
 // SetupClient for filling in Docker client instance
-func (im *Images) SetupClient() {
+func (d *Images) SetupClient() {
 	cli, err := client.NewClientWithOpts(client.FromEnv)
 	if err != nil {
 		panic(err)
 	}
-	im.Client = cli
+	d.Client = cli
 }
 
 // List works as Docker image ls command
@@ -38,7 +37,10 @@ func (d *Images) Pull(refStr string, options types.ImagePullOptions) (string, er
 		return "", err
 	}
 
-	buf.ReadFrom(response)
+	_, err = buf.ReadFrom(response)
+	if err != nil {
+		return "", err
+	}
 	return buf.String(), nil
 }
 
@@ -49,6 +51,6 @@ func (d *Images) Remove(imageID string, options types.ImageRemoveOptions) ([]typ
 
 // Inspect works as Docker image inspect
 func (d *Images) Inspect(imageID string) (types.ImageInspect, error) {
-	result, _, error := d.Client.ImageInspectWithRaw(context.Background(), imageID)
-	return result, error
+	result, _, err := d.Client.ImageInspectWithRaw(context.Background(), imageID)
+	return result, err
 }
