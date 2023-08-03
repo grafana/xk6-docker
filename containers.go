@@ -3,9 +3,8 @@ package docker
 import (
 	"bytes"
 	"context"
-	"time"
-
 	"github.com/docker/docker/api/types"
+	"github.com/docker/docker/api/types/container"
 	"github.com/docker/docker/client"
 )
 
@@ -37,9 +36,12 @@ func (d *Containers) Start(containerID string) error {
 // Stop works as Docker stop command
 func (d *Containers) Stop(containerID string) error {
 	// TODO: Add timeout option support
-	timeout := 0 * time.Second
+	timeout := 0
+	options := container.StopOptions{
+		Timeout: &timeout,
+	}
 
-	return d.Client.ContainerStop(context.Background(), containerID, &timeout)
+	return d.Client.ContainerStop(context.Background(), containerID, options)
 }
 
 // Pause works as Docker pause command
