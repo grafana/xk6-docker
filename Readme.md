@@ -1,3 +1,12 @@
+> ### ⚠️ Deprecated!!!
+>
+> This extension was originally created as a _proof of concept_.
+> At this time, there are no maintainers available to support this extension.
+>
+> USE AT YOUR OWN RISK!
+
+<br />
+
 # xk6-docker
 A k6 extension for using of Docker CLI in testing. Built for [k6](https://go.k6.io/k6) using [xk6](https://github.com/grafana/xk6).
 
